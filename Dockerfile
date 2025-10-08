@@ -1,4 +1,4 @@
-FROM node:16-alphine AS builder
+FROM node:16-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production
-FROM builder AS final
+FROM node:16-alpine AS final
 WORKDIR /app
 COPY --from=builder /app/build ./build
 COPY package*.json ./
